@@ -1,6 +1,6 @@
 import fs from 'fs'
 
-const input = fs.readFileSync('./sample.txt')
+const input = fs.readFileSync('./input.txt')
   .toString()
   .split('\n')
   .filter((x) => !!x)
@@ -29,6 +29,11 @@ for (const line of input) {
   maxY = Math.max(maxY, line[0][1], line[1][1])
 }
 
+const bottom = maxY + 2
+minX = Math.min(minX, sandEntry[0] - bottom)
+maxX = Math.max(maxX, sandEntry[0] + bottom)
+maxY = bottom
+
 const grid = []
 for (let y = minY; y <= maxY; y++) {
   const row = []
@@ -38,7 +43,7 @@ for (let y = minY; y <= maxY; y++) {
       continue
     }
 
-    row.push('.')
+    row.push(y === bottom ? '#' : '.')
   }
   grid.push(row)
 }
@@ -60,19 +65,17 @@ for (const line of input) {
 }
 
 function isFree(x, y) {
-  if (x < minX || x > maxX || y < minY) {
+  if (x < minX || x > maxX || y < minY || y > maxY) {
     return true
-  }
-
-  if (y >= maxY) {
-    return y < maxY + 2
   }
 
   return grid[y - minY][x - minX] === '.'
 }
 
-let fallingForever = false
-for (let i = 1; !fallingForever; i++) {
+let unitsOfSand = 0
+while (true) {
+  unitsOfSand++
+
   let [x, y] = sandEntry
   for (; y < maxY; y++) {
     if (isFree(x, y + 1)) {
@@ -93,13 +96,9 @@ for (let i = 1; !fallingForever; i++) {
     break
   }
 
-  if (y === maxY) {
-    fallingForever = true
-    continue
+  if (x === sandEntry[0] && y === sandEntry[1]) {
+    break
   }
-
-  // printGrid()
-  console.log(`Units of sand: ${i}`)
 }
 
-
+console.log(unitsOfSand)

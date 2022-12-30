@@ -67,8 +67,10 @@ function isFree(x, y) {
   return grid[y - minY][x - minX] === '.'
 }
 
-let fallingForever = false
-for (let i = 1; !fallingForever; i++) {
+let unitsOfSand = 0
+while (true) {
+  unitsOfSand++
+
   let [x, y] = sandEntry
   for (; y < maxY; y++) {
     if (isFree(x, y + 1)) {
@@ -90,12 +92,9 @@ for (let i = 1; !fallingForever; i++) {
   }
 
   if (y === maxY) {
-    fallingForever = true
-    continue
+    unitsOfSand--
+    break
   }
-
-  // printGrid()
-  console.log(`Units of sand: ${i}`)
 }
 
-
+console.log(unitsOfSand)
