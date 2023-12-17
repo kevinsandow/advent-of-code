@@ -1,7 +1,5 @@
 import input from './input.js'
 
-console.log(input.join('\n'))
-
 let sum = 0
 
 input.forEach((line, lineNumber) => {
@@ -18,11 +16,6 @@ input.forEach((line, lineNumber) => {
       input[lineNumber + 1][index] +
       (input[lineNumber + 1].substring(index + 1).match(/^\d+/)?.[0] || ''),
     ].join('|').match(/\d+/g).map(Number)
-    console.log(
-      lineNumber,
-      index,
-      numbers,
-    )
 
     if (numbers.length === 2) {
       sum += numbers[0] * numbers[1]
