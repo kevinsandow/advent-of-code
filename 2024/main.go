@@ -5,6 +5,7 @@ import (
 	"os"
 	day1 "github.com/kevinsandow/advent-of-code/2024/v2/1"
 	day2 "github.com/kevinsandow/advent-of-code/2024/v2/2"
+	day3 "github.com/kevinsandow/advent-of-code/2024/v2/3"
 )
 
 func main() {
@@ -37,6 +38,10 @@ func main() {
     err = day2.Part1(r, w)
   case "day2part2":
     err = day2.Part2(r, w)
+  case "day3part1":
+    err = day3.Part1(r, w)
+  case "day3part2":
+    err = day3.Part2(r, w)
   default:
     fmt.Fprintf(os.Stderr, "Not implemented: %s.\n", args[1])
     os.Exit(2)
